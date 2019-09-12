@@ -6,7 +6,6 @@ spring:
   resources:
     add-mappings: false
 
-
 swagger:
   enabled: true
   title: oms-API
@@ -16,6 +15,8 @@ swagger:
   exclude-path: /error
   version: 1.9
 
+server:
+  port: 8080
 ---
 spring:
   profiles: dev

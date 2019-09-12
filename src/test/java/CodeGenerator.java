@@ -37,7 +37,7 @@ public class CodeGenerator {
     private static final String DATE = new SimpleDateFormat("yyyy/MM/dd").format(new Date());//@date
 
     public static void main(String[] args) {
-        genCode("board_info");
+        genCode("sys_user");
         //genCodeByCustomModelName("输入表名","输入自定义Model名称");
     }
 
@@ -61,7 +61,7 @@ public class CodeGenerator {
     public static void genCodeByCustomModelName(String tableName, String modelName) {
         genModelAndMapper(tableName, modelName);
         genService(tableName, modelName);
-        genController(tableName, modelName);
+        //genController(tableName, modelName);
     }
 
 
@@ -90,7 +90,7 @@ public class CodeGenerator {
          *  该插件位置默认放在test文件夹里边，（因为与项目运行无关）
          */
         PluginConfiguration swaggerConfiguration = new PluginConfiguration();
-        swaggerConfiguration.setConfigurationType("GeneratorSwagger2Model");
+        swaggerConfiguration.setConfigurationType("com.good0520.reactadmin.GeneratorSwagger2Model");
         swaggerConfiguration.addProperty("apiModelAnnotationPackage", "io.swagger.annotations.ApiModel");
         swaggerConfiguration.addProperty("apiModelPropertyAnnotationPackage", "io.swagger.annotations.ApiModelProperty");
         context.addPluginConfiguration(swaggerConfiguration);
