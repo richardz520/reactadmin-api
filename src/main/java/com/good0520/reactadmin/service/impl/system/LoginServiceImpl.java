@@ -5,6 +5,7 @@ import com.good0520.reactadmin.core.ServiceException;
 import com.good0520.reactadmin.dao.SysUserMapper;
 import com.good0520.reactadmin.model.SysUser;
 import com.good0520.reactadmin.service.system.ILoginService;
+import com.good0520.reactadmin.utils.ListUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import tk.mybatis.mapper.entity.Example;
@@ -32,7 +33,7 @@ public class LoginServiceImpl implements ILoginService {
         example.createCriteria().andEqualTo("username", userName);
 
         List<SysUser> users = sysUserMapper.selectByExample(example);
-        if (users != null && users.size() > 0) {
+        if (ListUtils.isNotEmpty(users)) {
             if(users.get(0).getStatus()!=1){
                 throw new ServiceException("该账号已禁用！");
             }
