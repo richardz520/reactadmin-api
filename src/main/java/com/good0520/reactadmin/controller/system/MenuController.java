@@ -31,7 +31,7 @@ public class MenuController {
 
     @PostMapping("/delete")
     public Result delete(@RequestParam Integer id) {
-        iSysMenuService.deleteById(id);
+        iSysMenuService.deleteMenus(id);
         return ResultGenerator.genSuccessResult();
     }
 
