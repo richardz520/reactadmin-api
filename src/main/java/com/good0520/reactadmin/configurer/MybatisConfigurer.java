@@ -1,6 +1,8 @@
 package com.good0520.reactadmin.configurer;
 
+
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInterceptor;
 import com.good0520.reactadmin.core.ProjectConstant;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -37,9 +39,12 @@ public class MybatisConfigurer {
         //支持通过 Mapper 接口参数来传递分页参数
         properties.setProperty("supportMethodsArguments", "true");
         pageHelper.setProperties(properties);
-
+        PageInterceptor interceptor = new PageInterceptor();
+        interceptor.setProperties(properties);
         //添加插件
-        factory.setPlugins(new Interceptor[]{pageHelper});
+        factory.setPlugins(new Interceptor[]{interceptor});
+//        //添加插件
+//        factory.setPlugins(new Interceptor[]{pageHelper});
 
         //添加XML目录
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
@@ -55,7 +60,7 @@ public class MybatisConfigurer {
 
         //配置通用Mapper，详情请查阅官方文档
         Properties properties = new Properties();
-        properties.setProperty("mappers", ProjectConstant.MAPPER_INTERFACE_REFERENCE);
+       // properties.setProperty("mappers", ProjectConstant.MAPPER_INTERFACE_REFERENCE);
         //insert、update是否判断字符串类型!='' 即 test="str != null"表达式内是否追加 and str != ''
         properties.setProperty("notEmpty", "false");
         properties.setProperty("IDENTITY", "MYSQL");
