@@ -60,7 +60,7 @@ public class SysMenuServiceImpl extends AbstractService<SysMenu> implements ISys
             List<JSONObject> list = new ArrayList<>(pSysMenus.size());
             for (SysMenu menu : pSysMenus) {
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.put("key", menu.getId());
+                jsonObject.put("id", menu.getId());
                 jsonObject.put("title", menu.getTitle());
                 jsonObject.put("path", menu.getPath());
                 jsonObject.put("component", menu.getComponent());
