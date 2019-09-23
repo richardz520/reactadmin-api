@@ -31,16 +31,24 @@ public class LoginServiceImpl implements ILoginService {
         example.createCriteria().andEqualTo("username", userName);
 
         SysUser user = sysUserMapper.selectOneByExample(example);
-        if (user!=null) {
-            if(user.getStatus()!=1){
+        if (user != null) {
+            if (user.getStatus() != 1) {
                 throw new ServiceException("该账号已禁用！");
             }
             if (user.getPassword().equals(Utils.md5(password))) {
                 user.setPassword("");
-                return  user;
+                return user;
             }
             throw new ServiceException("密码错误！");
         }
         throw new ServiceException("该用户不存在！");
+    }
+
+    @Override
+    public SysUser getUser(String userName) {
+        Example example = new Example(SysUser.class);
+        example.createCriteria().andEqualTo("username", userName);
+
+        return sysUserMapper.selectOneByExample(example);
     }
 }

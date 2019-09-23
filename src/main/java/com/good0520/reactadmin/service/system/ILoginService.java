@@ -10,4 +10,6 @@ public interface ILoginService {
 
 
     SysUser login(String userName, String password);
+
+    SysUser getUser(String userName);
 }

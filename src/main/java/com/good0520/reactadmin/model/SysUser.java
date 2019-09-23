@@ -2,12 +2,14 @@ package com.good0520.reactadmin.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 
 @ApiModel(value="SysUser")
 @Table(name = "sys_user")
-public class SysUser {
+public class SysUser implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @ApiModelProperty(value="")
