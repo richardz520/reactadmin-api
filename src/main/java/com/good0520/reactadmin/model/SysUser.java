@@ -57,6 +57,12 @@ public class SysUser {
     private String headimg;
 
     /**
+     * 角色id
+     */
+    @ApiModelProperty(value="角色id")
+    private Integer roleid;
+
+    /**
      * @return id
      */
     public Integer getId() {
@@ -194,5 +200,23 @@ public class SysUser {
      */
     public void setHeadimg(String headimg) {
         this.headimg = headimg;
+    }
+
+    /**
+     * 获取角色id
+     *
+     * @return roleid - 角色id
+     */
+    public Integer getRoleid() {
+        return roleid;
+    }
+
+    /**
+     * 设置角色id
+     *
+     * @param roleid 角色id
+     */
+    public void setRoleid(Integer roleid) {
+        this.roleid = roleid;
     }
 }

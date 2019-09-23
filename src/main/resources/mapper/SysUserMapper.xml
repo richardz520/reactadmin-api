@@ -13,5 +13,6 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="status" jdbcType="BIT" property="status" />
     <result column="headimg" jdbcType="VARCHAR" property="headimg" />
+    <result column="roleid" jdbcType="INTEGER" property="roleid" />
   </resultMap>
 </mapper>

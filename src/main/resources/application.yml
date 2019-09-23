@@ -30,6 +30,7 @@ spring:
       max-active: 20
       test-on-borrow: true
       driver-class-name: com.mysql.cj.jdbc.Driver
+headImgDir: d:\img\
 
 user:
   dir: F:\\personal\\code\\reactadmin-api

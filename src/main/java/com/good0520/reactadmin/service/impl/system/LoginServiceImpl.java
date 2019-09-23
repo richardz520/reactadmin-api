@@ -26,20 +26,18 @@ public class LoginServiceImpl implements ILoginService {
 
     @Override
     public SysUser login(String userName, String password) {
-        if (StringUtils.isEmpty(userName)) {
-            throw new ServiceException("用户名不能为空！");
-        }
+
         Example example = new Example(SysUser.class);
         example.createCriteria().andEqualTo("username", userName);
 
-        List<SysUser> users = sysUserMapper.selectByExample(example);
-        if (ListUtils.isNotEmpty(users)) {
-            if(users.get(0).getStatus()!=1){
+        SysUser user = sysUserMapper.selectOneByExample(example);
+        if (user!=null) {
+            if(user.getStatus()!=1){
                 throw new ServiceException("该账号已禁用！");
             }
-            if (users.get(0).getPassword().equals(Utils.md5(password))) {
-                users.get(0).setPassword("");
-                return  users.get(0);
+            if (user.getPassword().equals(Utils.md5(password))) {
+                user.setPassword("");
+                return  user;
             }
             throw new ServiceException("密码错误！");
         }
