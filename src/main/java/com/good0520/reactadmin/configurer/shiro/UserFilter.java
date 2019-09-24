@@ -31,7 +31,7 @@ public class UserFilter extends FormAuthenticationFilter {
             //设置返回的数据
             //写回给客户端
             PrintWriter out = httpResponse.getWriter();
-            Result result=new Result();
+            Result result = new Result();
             result.setCode(ResultCode.UNAUTHORIZED);
             result.setMessage("登录已过期，请重新登录");
             out.write(result.toString());

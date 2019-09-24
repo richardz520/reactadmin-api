@@ -6,11 +6,15 @@ import com.good0520.reactadmin.dao.SysUserMapper;
 import com.good0520.reactadmin.model.SysUser;
 import com.good0520.reactadmin.service.system.ISysUserService;
 import com.good0520.reactadmin.core.AbstractService;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 
 
@@ -19,6 +23,7 @@ import java.util.Date;
  * @date 2019/09/19
  */
 @Service
+@Slf4j
 @Transactional
 public class SysUserServiceImpl extends AbstractService<SysUser> implements ISysUserService {
     @Resource
@@ -35,5 +40,18 @@ public class SysUserServiceImpl extends AbstractService<SysUser> implements ISys
         sysUser.setPassword(Utils.md5(sysUser.getPassword()));
         sysUser.setCreateTime(new Date());
         sysUserMapper.insertSelective(sysUser);
+    }
+
+    @Override
+    public void updatePwd(String pwd) {
+        Object object = SecurityUtils.getSubject().getPrincipal();
+        SysUser user = new SysUser();
+        try {
+            PropertyUtils.copyProperties(user, object);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        user.setPassword(Utils.md5(pwd));
+        sysUserMapper.updateByPrimaryKeySelective(user);
     }
 }

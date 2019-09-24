@@ -10,4 +10,6 @@ import com.good0520.reactadmin.core.Service;
 public interface ISysUserService extends Service<SysUser> {
 
     void addNewUser(SysUser sysUser);
+
+    void updatePwd(String pwd);
 }
