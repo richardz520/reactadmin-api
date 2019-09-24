@@ -58,6 +58,20 @@ public class SysMenu {
     private String remark;
 
     /**
+     * 是否路由
+     */
+    @ApiModelProperty(value="是否路由")
+    private Integer isLink;
+
+    public Integer getIsLink() {
+        return isLink;
+    }
+
+    public void setIsLink(Integer isLink) {
+        this.isLink = isLink;
+    }
+
+    /**
      * 获取主键
      *
      * @return id - 主键

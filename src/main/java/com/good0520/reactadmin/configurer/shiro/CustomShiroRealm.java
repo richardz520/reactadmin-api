@@ -15,18 +15,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class CustomShiroRealm extends AuthorizingRealm {
     @Autowired
     private ILoginService iLoginService;
+
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
+        /*
+        此处根据实际情况添加权限
+        SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
+        simpleAuthorizationInfo.addRoles(stringRoleList);
+        simpleAuthorizationInfo.addStringPermissions(stringPermissionList)
+        return simpleAuthorizationInfo;
+         */
         return null;
     }
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         //从token获取用户信息，token代表用户输入
-        String username = (String)authenticationToken.getPrincipal();
+        String username = (String) authenticationToken.getPrincipal();
 
-        SysUser user =  iLoginService.getUser(username);
-        if (user==null){
+        SysUser user = iLoginService.getUser(username);
+        if (user == null) {
             return null;
         }
         //账户冻结

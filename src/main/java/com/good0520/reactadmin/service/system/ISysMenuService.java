@@ -15,4 +15,5 @@ public interface ISysMenuService extends Service<SysMenu> {
 
     List<JSONObject> getMenuList();
     void deleteMenus(int pId);
+
 }

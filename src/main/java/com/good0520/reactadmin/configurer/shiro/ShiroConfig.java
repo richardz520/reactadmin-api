@@ -1,5 +1,6 @@
 package com.good0520.reactadmin.configurer.shiro;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.mgt.SecurityManager;
@@ -13,7 +14,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.servlet.Filter;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -33,7 +37,17 @@ public class ShiroConfig {
     public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
         System.out.println("ShiroConfiguration.shirFilter()");
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
-       shiroFilterFactoryBean.setSecurityManager(securityManager);
+        shiroFilterFactoryBean.setSecurityManager(securityManager);
+
+        shiroFilterFactoryBean.setUnauthorizedUrl("/api/sys/notPermit");
+
+        Map<String, Filter> filtersMap = new HashMap<>(1);
+
+        UserFilter authFilter = new UserFilter();
+
+        filtersMap.put("authc", authFilter);
+
+        shiroFilterFactoryBean.setFilters(filtersMap);
 
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
 
@@ -43,11 +57,16 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/swagger-resources/configuration/ui", "anon");
         filterChainDefinitionMap.put("/v2/api-docs", "anon");
         filterChainDefinitionMap.put("/webjars/springfox-swagger-ui/**", "anon");
-        filterChainDefinitionMap.put("/api/logout","anon");
+        filterChainDefinitionMap.put("/api/logout", "anon");
 
-        filterChainDefinitionMap.put("/api/sys/login","anon");
+        filterChainDefinitionMap.put("/api/sys/login", "anon");
 
-        filterChainDefinitionMap.put("/api/sys/image/**","anon");
+        filterChainDefinitionMap.put("/api/sys/image/**", "anon");
+
+        /*
+         * 此处根据实际情况添加权限
+         */
+
 
         filterChainDefinitionMap.put("/**", "authc");
 
@@ -95,6 +114,7 @@ public class ShiroConfig {
     @Bean
     public SessionManager sessionManager() {
         ShiroSessionManager mySessionManager = new ShiroSessionManager();
+        mySessionManager.setGlobalSessionTimeout(1000 * 60 * 60);
         mySessionManager.setSessionDAO(redisSessionDAO());
         return mySessionManager;
     }

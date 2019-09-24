@@ -67,6 +67,7 @@ public class SysMenuServiceImpl extends AbstractService<SysMenu> implements ISys
                 jsonObject.put("sort", menu.getSort());
                 jsonObject.put("icon", menu.getIcon());
                 jsonObject.put("pid", menu.getPid());
+                jsonObject.put("isLink",menu.getIsLink());
                 jsonObject.put("remark", menu.getRemark());
                 List<JSONObject> childMenus = getMenu(menu.getId());
                 if (ListUtils.isNotEmpty(childMenus)) {
